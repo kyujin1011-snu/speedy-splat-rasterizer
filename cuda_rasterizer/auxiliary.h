@@ -202,11 +202,6 @@ __device__ inline uint32_t processTiles(
     float ellipse_min, ellipse_max;
     float min_line, max_line;
 
-    // Initialize max line
-    // Just need the min to be >= all points on the ellipse
-    // and  max to be <= all points on the ellipse
-    intersect_max_line = {bbox_max.y, bbox_min.y};
-
     min_line = rect_min.x * BLOCK_U;
     // Initialize min line intersections.
     if (bbox_min.x <= min_line) {
@@ -215,8 +210,9 @@ __device__ inline uint32_t processTiles(
                 con_o, disc, t, p, isY, rect_min.x * BLOCK_U);
 
     } else {
-      // Same as max line
-      intersect_min_line = intersect_max_line;
+      // Just need the min to be >= all points on the ellipse andAdd commentMore actions
+      // max to be <= all points on the ellipse
+      intersect_min_line = {bbox_max.y, bbox_min.y};
     }
 
 
